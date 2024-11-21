@@ -11,7 +11,7 @@
 | first_name           | string | null: false               |
 | last_name_kana       | string | null: false               |
 | first_name_kana      | string | null: false               |
-| date_of_birth        | string | null: false               |
+| date_of_birth        | date   | null: false               |
 
 ### Association
 
@@ -26,7 +26,7 @@
 | product_explanation   | text    | null: false |
 | category_id           | integer | null: false |
 | product_condition_id  | integer | null: false |
-| shipping_costs_id     | integer | null: false |
+| shipping_cost_id      | integer | null: false |
 | shipping_region_id    | integer | null: false |
 | delivery_time_id      | integer | null: false |
 | sales_price           | integer | null: false |
@@ -34,7 +34,7 @@
 ### Association
 
 - belongs_to :user
-- belongs_to :record
+- has_one :record
 
 ## shipping_informations テーブル
 
@@ -43,7 +43,7 @@
 | post_code          | integer    | null: false                    |
 | prefectures_id     | integer    | null: false                    |
 | municipalities     | string     | null: false                    |
-| street_address     | string     | null: false
+| street_address     | string     | null: false                    |
 | building_name      | string     |                                |
 | telephone_number   | string     | null: false                    |
 | record             | references | null: false, foreign_key: true |
