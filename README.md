@@ -30,7 +30,7 @@
 | shipping_region_id    | integer    | null: false                    |
 | delivery_time_id      | integer    | null: false                    |
 | sales_price           | integer    | null: false                    |
-| user_id               | references | null: false, foreign_key: true |
+| user                  | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -47,7 +47,7 @@
 | street_address     | string     | null: false                    |
 | building_name      | string     |                                |
 | telephone_number   | string     | null: false                    |
-| record_id          | references | null: false, foreign_key: true |
+| record             | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -57,8 +57,8 @@
 
 | Column     | Type       | Options                        |
 | ---------- | ---------- | ------------------------------ |
-| user_id    | references | null: false, foreign_key: true |
-| product_id | references | null: false, foreign_key: true |
+| user    | references | null: false, foreign_key: true |
+| product | references | null: false, foreign_key: true |
 
 ### Association
 
