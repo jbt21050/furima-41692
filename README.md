@@ -24,12 +24,12 @@
 | --------------------- | ------- | ----------- |
 | product_name          | string  | null: false |
 | product_explanation   | text    | null: false |
-| category_id           | string  | null: false |
-| product_condition_id  | string  | null: false |
-| shipping_costs_id     | string  | null: false |
-| shipping_region_id    | string  | null: false |
-| delivery_time_id      | string  | null: false |
-| sales_price           | numeric | null: false |
+| category_id           | integer | null: false |
+| product_condition_id  | integer | null: false |
+| shipping_costs_id     | integer | null: false |
+| shipping_region_id    | integer | null: false |
+| delivery_time_id      | integer | null: false |
+| sales_price           | integer | null: false |
 
 ### Association
 
@@ -40,8 +40,8 @@
 
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | ------------------------------ |
-| post_code          | string     | null: false                    |
-| prefectures_id     | string     | null: false                    |
+| post_code          | integer    | null: false                    |
+| prefectures_id     | integer    | null: false                    |
 | municipalities     | string     | null: false                    |
 | street_address     | string     | null: false
 | building_name      | string     |                                |
