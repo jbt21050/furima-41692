@@ -11,14 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2024_11_22_021934) do
-  create_table "furimas", charset: "utf8mb3", force: :cascade do |t|
-    t.string "name"
-    t.string "text"
-    t.text "image"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "users", charset: "utf8mb3", force: :cascade do |t|
     t.string "nickname", null: false
     t.string "email", default: "", null: false
@@ -27,7 +19,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_22_021934) do
     t.string "first_name", null: false
     t.string "last_name_kana", null: false
     t.string "first_name_kana", null: false
-    t.string "date_of_birth", null: false
+    t.date "date_of_birth", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
