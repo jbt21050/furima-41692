@@ -1,6 +1,6 @@
-class Products_Controller < ApplicationController
+class ProductsController < ApplicationController
   def index
-    # @product = Product.all
+    @product = Product.all
   end
   private
 
