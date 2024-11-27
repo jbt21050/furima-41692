@@ -54,7 +54,7 @@
           商品の状態
           <span class="indispensable">必須</span>
         </div>
-        <%= f.collection_select(:product_condition_id, Product_condition.all, :id, :name, {}, {class:"select-box"}) %>
+        <%= f.collection_select(:product_condition_id, ProductCondition.all, :id, :name, {}, {class:"select-box"}) %>
       </div>
     </div>
     <%# /商品の詳細 %>
@@ -70,17 +70,17 @@
           配送料の負担
           <span class="indispensable">必須</span>
         </div>
-        <%= f.collection_select(:shipping_cost_id, Shipping_cost.all, :id, :name, {}, {class:"select-box"}) %>
+        <%= f.collection_select(:shipping_cost_id, ShippingCost.all, :id, :name, {}, {class:"select-box"}) %>
         <div class="weight-bold-text">
           発送元の地域
           <span class="indispensable">必須</span>
         </div>
-        <%= f.collection_select(:shipping_region_id, Shipping_region.all, :id, :name, {}, {class:"select-box"}) %>
+        <%= f.collection_select(:shipping_region_id, ShippingRegion.all, :id, :name, {}, {class:"select-box"}) %>
         <div class="weight-bold-text">
           発送までの日数
           <span class="indispensable">必須</span>
         </div>
-        <%= f.collection_select(:delivery_time_id, Delivery_time.all, :id, :name, {}, {class:"select-box"}) %>
+        <%= f.collection_select(:delivery_time_id, DeliveryTime.all, :id, :name, {}, {class:"select-box"}) %>
       </div>
     </div>
     <%# /配送について %>

@@ -12,6 +12,7 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.create(product_params)
+    @product.user = current_user
     
     if @product.save
       redirect_to root_path, notice: '商品が出品されました'
