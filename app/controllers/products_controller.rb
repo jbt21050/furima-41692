@@ -8,10 +8,10 @@ class ProductsController < ApplicationController
   def new
     @product = Product.new
     @categories = Category.all
-    @product_conditions = ProductCondition.all
-    @shipping_costs = ShippingCost.all
-    @shipping_regions = ShippingRegion.all
-    @delivery_times = DeliveryTime.all
+    @product_conditions = Product_condition.all
+    @shipping_costs = Shipping_cost.all
+    @shipping_regions = Shipping_region.all
+    @delivery_times = Delivery_time.all
   end
 
   def create
@@ -21,10 +21,10 @@ class ProductsController < ApplicationController
       redirect_to root_path, notice: '商品が出品されました'
     else
       @categories = Category.all
-      @product_conditions = ProductCondition.all
-      @shipping_costs = ShippingCost.all
-      @shipping_regions = ShippingRegion.all
-      @delivery_times = DeliveryTime.all
+      @product_conditions = Product_condition.all
+      @shipping_costs = Shipping_cost.all
+      @shipping_regions = Shipping_region.all
+      @delivery_times = Delivery_time.all
       render :new
     end
   end
