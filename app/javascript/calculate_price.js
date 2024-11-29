@@ -1,12 +1,12 @@
-document.addEventListener('turbo:load', () => {
-  console.log("OK");
+function salesPrice() {
   const priceInput = document.getElementById('item-price');
   const addTaxDom = document.getElementById('add-tax-price');
   const profitDom = document.getElementById('profit');
 
+  if (!priceInput || !addTaxDom || !profitDom) return;
+
   priceInput.addEventListener('input', () => {
-    const inputValue = priceInput.value;
-    console.log("イベント発火");
+    const inputValue = parseInt(priceInput.value, 10);
 
     if (!isNaN(inputValue) && inputValue >= 300 && inputValue <= 9999999) {
       const tax = Math.floor(inputValue * 0.1);
@@ -18,4 +18,7 @@ document.addEventListener('turbo:load', () => {
       profitDom.textContent = '0';
     }
   });
-});
+}
+
+document.addEventListener('turbo:load', salesPrice);
+document.addEventListener('turbo:render', salesPrice);
