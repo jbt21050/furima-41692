@@ -1,0 +1,4 @@
+require 'chunky_png'
+
+png = ChunkyPNG::Image.new(1, 1, ChunkyPNG::Color::WHITE)
+png.save('spec/fixtures/sample_image.png', :fast_rgba)

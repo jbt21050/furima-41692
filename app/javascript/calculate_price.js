@@ -6,6 +6,7 @@ document.addEventListener('turbo:load', () => {
 
   priceInput.addEventListener('input', () => {
     const inputValue = priceInput.value;
+    console.log("イベント発火");
 
     if (!isNaN(inputValue) && inputValue >= 300 && inputValue <= 9999999) {
       const tax = Math.floor(inputValue * 0.1);
