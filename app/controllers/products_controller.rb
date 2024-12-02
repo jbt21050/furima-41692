@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:edit, :update]
+  before_action :set_product, only: [:edit, :update, :show]
   before_action :authenticate_user!, only: [:new, :edit, :update]
   before_action :authorize_user, only: [:edit, :update]
   def index
@@ -11,11 +11,11 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.find(params[:id])
+    
   end
 
   def edit
-    @product
+    
   end
 
   def update
