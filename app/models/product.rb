@@ -8,7 +8,6 @@ class Product < ApplicationRecord
   belongs_to :delivery_time
 
   belongs_to :user
-  has_one :record
   has_one_attached :image
   
 
