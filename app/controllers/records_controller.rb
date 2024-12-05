@@ -2,6 +2,9 @@ class RecordsController < ApplicationController
   def new
     @record_form = RecordForm.new
     @product = Product.find(params[:product_id]) # 商品情報取得
+
+    gon.product_name = @product.product_name
+    gon.product_price = @product.sales_price
   end
 
   def create
