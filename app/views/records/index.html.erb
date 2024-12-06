@@ -1,4 +1,4 @@
-<%= render "shared/second-header"%>
+<%= render "shared/second-header" %>
 
 <div class='transaction-contents'>
   <div class='transaction-main'>
@@ -31,41 +31,30 @@
     </div>
     <%# /支払額の表示 %>
 
-    <%= form_with id: 'charge-form', class: 'transaction-form-wrap',local: true do |f| %>
-    <%# <%= render 'shared/error_messages', model: f.object %>
-    <%# カード情報の入力 %>
+<%= form_with model: @record_form, url: product_records_path(@product), id: 'charge-form', class: 'transaction-form-wrap', local: true do |f| %>
+    <%= render 'shared/error_messages', model: f.object %>
     <div class='credit-card-form'>
-      <h1 class='info-input-haedline'>
-        クレジットカード情報入力
-      </h1>
+    <h1 class='info-input-haedline'>クレジットカード情報入力</h1>
       <div class="form-group">
         <div class='form-text-wrap'>
-          <label class="form-text">カード情報</label>
+        <label class="form-text">カード番号</label>
           <span class="indispensable">必須</span>
         </div>
-        <div id="number-form" class="input-default"></div>
-        <div class='available-card'>
-          <%= image_tag 'card-visa.gif', class: 'card-logo'%>
-          <%= image_tag 'card-mastercard.gif', class: 'card-logo'%>
-          <%= image_tag 'card-jcb.gif', class: 'card-logo'%>
-          <%= image_tag 'card-amex.gif', class: 'card-logo'%>
-        </div>
+      <input type="text" id="card-number" class="input-default" placeholder="カード番号">
       </div>
       <div class="form-group">
         <div class='form-text-wrap'>
           <label class="form-text">有効期限</label>
           <span class="indispensable">必須</span>
         </div>
-        <div class='input-expiration-date-wrap'>
-          <div id="expiry-form" class="input-default"></div>
-        </div>
+        <input type="text" id="expiry" class="input-default" placeholder="MM/YY">
       </div>
       <div class="form-group">
         <div class='form-text-wrap'>
           <label class="form-text">セキュリティコード</label>
           <span class="indispensable">必須</span>
         </div>
-        <div id="cvc-form" class="input-default"></div>
+        <input type="text" id="card-cvc" class="input-default" placeholder="CVC">
       </div>
     </div>
     <%# /カード情報の入力 %>
@@ -117,12 +106,15 @@
         </div>
         <%= f.text_field :telephone_number, class:"input-default", id:"phone-number", placeholder:"例）09012345678",maxlength:"11"%>
       </div>
+      <div id="card-errors" role="alert"></div>
     </div>
     <%# /配送先の入力 %>
     <div class='buy-btn'>
-      <%= f.submit "購入" ,class:"buy-red-btn", id:"button" %>
+        <%= f.hidden_field :payjp_token, id: 'payjp-token' %>
+      <%= f.submit "購入", class: "buy-red-btn", id: "button" %>
     </div>
     <% end %>
   </div>
 </div>
-<%= render "shared/second-footer"%>
+
+<%= render "shared/second-footer" %>
