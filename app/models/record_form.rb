@@ -3,14 +3,14 @@ class RecordForm
 
   # 保存したいカラムをすべて列挙
   attr_accessor :user_id, :product_id, :post_code, :shipping_region_id, :municipalities,
-                :street_address, :building_name, :telephone_number, :token
+                :street_address, :building_name, :telephone_number, :payjp_token
   
   attr_accessor :shipping_information
 
-  def initialize(attributes = {})
-    super
-    @shipping_information = ShippingInformation.new(attributes[:shipping_information_attributes])
+  def product
+    @product ||= Product.find(product_id)
   end
+
 
   # バリデーション設定
   with_options presence: true do
@@ -21,17 +21,23 @@ class RecordForm
     validates :municipalities
     validates :street_address
     validates :telephone_number, format: { with: /\A\d{10,11}\z/, message: 'は10桁または11桁の半角数字で入力してください' }
-    validates :token
+    validates :payjp_token
   end
 
   # データ保存処理
   def save
+    
     record = Record.create(user_id: user_id, product_id: product_id)
+
     ShippingInformation.create(
-      post_code: post_code, shipping_region_id: shipping_region_id,
-      municipalities: municipalities, street_address: street_address,
-      building_name: building_name, telephone_number: telephone_number,
-      record_id: record.id
+    post_code: post_code,
+    shipping_region_id: shipping_region_id,
+    municipalities: municipalities,
+    street_address: street_address,
+    building_name: building_name,
+    telephone_number: telephone_number,
+    record_id: record.id, 
     )
   end
-end
+end    
+

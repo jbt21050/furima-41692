@@ -15,13 +15,9 @@ class RecordsController < ApplicationController
     @record_form.product_id = @product.id
 
     if @record_form.valid?
-      if process_payment
-        @record_form.save
-        redirect_to root_path, notice: '購入が完了しました。'
-      else
-        flash.now[:alert] = '決済処理に問題が発生しました。'
-        render :new
-      end
+      pay_item
+      @record_form.save
+      redirect_to root_path
     else
       render :index, status: :unprocessable_entity
     end
@@ -35,24 +31,32 @@ class RecordsController < ApplicationController
 
   def redirect_if_not_allowed
     if current_user.id == @product.user_id || @product.record.present?
-      redirect_to root_path, alert: 'この操作は許可されていません。'
+      redirect_to root_path
     end
   end
 
   def record_params
     params.require(:record_form).permit(
       :post_code, :shipping_region_id, :municipalities,
-      :street_address, :building_name, :telephone_number
+      :street_address, :building_name, :telephone_number,
+      :payjp_token
     )
   end
 
-  def process_payment
-    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
-    charge = Payjp::Charge.create(
-      amount: @product.sales_price,
-      card: params['payjp-token'],
-      currency: 'jpy'
-    )
-    charge.paid
+  def pay_item
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+  
+    begin
+      charge = Payjp::Charge.create(
+        amount: @product.sales_price,
+        card: record_params[:payjp_token],
+        currency: 'jpy'
+      )
+      return charge.paid
+    rescue Payjp::PayjpError => e
+      logger.error "Payment failed: #{e.message}"
+      errors.add(:base, "Payment processing failed.")
+      return false
+    end
   end
-end
+end  

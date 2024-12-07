@@ -1,34 +1,32 @@
-// app/javascript/packs/payjp.js
-document.addEventListener('DOMContentLoaded', () => {
-  if (!gon.public_key) {
-    console.error('PAY.JPの公開鍵が設定されていません。');
-    return;
-  }
-
-  const payjp = Payjp(gon.public_key);
+const pay = () => {
+  const publicKey = gon.public_key
+  const payjp = Payjp(publicKey) // PAY.JPテスト公開鍵
   const elements = payjp.elements();
-  card.mount('#card-element');
+  const numberElement = elements.create('cardNumber');
+  const expiryElement = elements.create('cardExpiry');
+  const cvcElement = elements.create('cardCvc');
 
-  const form = document.getElementById('charge-form');
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault();
-
-    const { token, error } = await payjp.createToken(card);
-    if (error) {
-      const errorElement = document.getElementById('card-errors');
-      errorElement.textContent = error.message;
-    } else {
-      const hiddenInput = document.createElement('input');
-      hiddenInput.setAttribute('type', 'hidden');
-      hiddenInput.setAttribute('name', 'payjp-token');
-      hiddenInput.setAttribute('value', token.id);
-      form.appendChild(hiddenInput);
-
-      // カード情報のフィールドをクリア
-      card.clear();
-
-      // フォームを送信
-      form.submit();
-    }
+  numberElement.mount('#number-form');
+  expiryElement.mount('#expiry-form');
+  cvcElement.mount('#cvc-form');
+  const form = document.getElementById('charge-form')
+  form.addEventListener("submit", (e) => {
+    payjp.createToken(numberElement).then(function (response) {
+      if (response.error) {
+      } else {
+        const token = response.id;
+        const renderDom = document.getElementById("charge-form");
+        const tokenObj = `<input value=${token} name='record_form[payjp_token]' type="hidden">`;
+        renderDom.insertAdjacentHTML("beforeend", tokenObj);
+      }
+      numberElement.clear();
+      expiryElement.clear();
+      cvcElement.clear();
+      document.getElementById("charge-form").submit();
+    });
+    e.preventDefault();
   });
-});
+};
+
+window.addEventListener("turbo:load", pay);
+window.addEventListener("turbo:render", pay);
