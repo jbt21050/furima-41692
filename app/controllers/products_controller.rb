@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:edit, :update, :show, :destroy]
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
   before_action :authorize_user, only: [:edit, :update, :destroy]
+  before_action :redirect_if_sold_out, only: [:edit, :update]
 
   def index
     @products = Product.order(created_at: :desc)
@@ -60,3 +61,11 @@ class ProductsController < ApplicationController
     redirect_to root_path, alert: '権限がありません。' unless current_user == @product.user
   end
 end
+
+def redirect_if_sold_out
+  product = Product.find(params[:id])
+  if product.record.present?
+    redirect_to root_path, alert: '売却済み商品の編集はできません。'
+  end
+end
+
