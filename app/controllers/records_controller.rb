@@ -5,7 +5,7 @@ class RecordsController < ApplicationController
   before_action :redirect_if_not_allowed, only: [:index, :create]
 
   def index
-    gon.public_key = ENV['PAYJP_PUBLIC_KEY'] # PAY.JPの公開鍵を設定
+    gon.public_key = ENV['PAYJP_PUBLIC_KEY']
     @record_form = RecordForm.new
   end
 
@@ -19,6 +19,7 @@ class RecordsController < ApplicationController
       @record_form.save
       redirect_to root_path
     else
+      gon.public_key = ENV['PAYJP_PUBLIC_KEY']
       render :index, status: :unprocessable_entity
     end
   end
