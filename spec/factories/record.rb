@@ -7,7 +7,7 @@ FactoryBot.define do
     building_name { 'Test Building' }
     telephone_number { '09012345678' }
     payjp_token { 'tok_abcdefghijk00000000000000000' }
-    user_id { nil }
-    product_id { nil }
+    user_id {  }
+    product_id {  }
   end
 end
